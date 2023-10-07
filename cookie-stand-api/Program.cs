@@ -1,4 +1,6 @@
-using cookie_stand_api;
+using cookie_stand_api.Data;
+using cookie_stand_api.Models.Interfaces;
+using cookie_stand_api.Models.Services;
 using Microsoft.EntityFrameworkCore;
 using System;
 
@@ -13,8 +15,12 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddTransient<ICookiestand, CookiestandService>();
+
 builder.Services.AddDbContext<AppDbContext>(options =>
 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+
 
 
 var app = builder.Build();
