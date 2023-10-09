@@ -36,10 +36,6 @@ namespace cookie_stand_api.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("HourlySales")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Location")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -63,12 +59,46 @@ namespace cookie_stand_api.Migrations
                             Id = 1,
                             Average_cookies_per_sale = 0.0,
                             Description = "desc",
-                            HourlySales = "",
                             Location = "amman",
                             Maximum_customers_per_hour = 20,
                             Minimum_customers_per_hour = 1,
                             Owner = "owner1"
                         });
+                });
+
+            modelBuilder.Entity("cookie_stand_api.Models.HourlySale", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("CookiestandId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Hour")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CookiestandId");
+
+                    b.ToTable("HourlySales");
+                });
+
+            modelBuilder.Entity("cookie_stand_api.Models.HourlySale", b =>
+                {
+                    b.HasOne("cookie_stand_api.Models.Cookiestand", null)
+                        .WithMany("HourlySales")
+                        .HasForeignKey("CookiestandId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("cookie_stand_api.Models.Cookiestand", b =>
+                {
+                    b.Navigation("HourlySales");
                 });
 #pragma warning restore 612, 618
         }

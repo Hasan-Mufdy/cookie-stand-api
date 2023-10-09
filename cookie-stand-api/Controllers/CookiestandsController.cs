@@ -33,8 +33,8 @@ namespace cookie_stand_api.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<Cookiestand>> GetCookiestand(int id)
         {
-            await _context.GetById(id);
-            return Ok();
+            var cookiestand = await _context.GetById(id);
+            return Ok(cookiestand);
         }
 
         // PUT: api/Cookiestands/5
@@ -60,6 +60,14 @@ namespace cookie_stand_api.Controllers
         {
             await _context.Delete(id);
             return NoContent();
+        }
+
+
+        [HttpPost("{id}/hourlysales")]
+        public async Task<IActionResult> AddHourlySale(int id, HourlySale hourlySale)
+        {
+            await _context.AddHourlySale(id, hourlySale);
+            return Ok();
         }
 
         //[HttpPut("{id}/hourly-sales")]

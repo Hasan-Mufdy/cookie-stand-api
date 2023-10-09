@@ -22,13 +22,17 @@ namespace cookie_stand_api.Models.Services
 
         public async Task<List<Cookiestand>> GetAll()
         {
-            var cookieStand = await _context.Cookiestands.ToListAsync();
+            var cookieStand = await _context.Cookiestands
+                .Include(c => c.HourlySales)
+                .ToListAsync();
             return cookieStand;
         }
 
         public async Task<Cookiestand> GetById(int id)
         {
-            var cookieStand = await _context.Cookiestands.SingleOrDefaultAsync(c => c.Id == id);
+            var cookieStand = await _context.Cookiestands
+                .Include(c => c.HourlySales)
+                .SingleOrDefaultAsync(c => c.Id == id);
             return cookieStand;
         }
 
@@ -74,6 +78,15 @@ namespace cookie_stand_api.Models.Services
         //        await _context.SaveChangesAsync();
         //    }
         //}
+        public async Task AddHourlySale(int cookieStandId, HourlySale hourlySale)
+        {
+            var cookieStand = await _context.Cookiestands.Include(c => c.HourlySales).FirstOrDefaultAsync(c => c.Id == cookieStandId);
+            if (cookieStand != null)
+            {
+                cookieStand.HourlySales.Add(hourlySale);
+                await _context.SaveChangesAsync();
+            }
+        }
 
 
     }

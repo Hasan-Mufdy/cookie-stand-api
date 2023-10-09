@@ -11,8 +11,8 @@ namespace cookie_stand_api.Models
 
         public string Location { get; set; }
 
-        //public List<HourlySale> hourly_sales { get; set; }
-        public string HourlySales { get; set; }
+        public List<HourlySale>? HourlySales { get; set; }
+        //public string HourlySales { get; set; }
 
         public int Minimum_customers_per_hour { get; set; }
         public int Maximum_customers_per_hour { get; set; }
