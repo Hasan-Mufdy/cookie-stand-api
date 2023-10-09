@@ -10,6 +10,7 @@
         Task<Cookiestand> Put(int id, Cookiestand cookiestand);
         Task Delete(int id);
         //Task UpdateHourlySales(int id, List<int> hourlySales);
+        Task AddHourlySale(int cookieStandId, HourlySale hourlySale);
 
     }
 }

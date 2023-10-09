@@ -13,7 +13,14 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(options =>
+{
+    options.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo()
+    {
+        Title = "Cookie Salmon API",
+        Version = "v1",
+    });
+});
 
 builder.Services.AddTransient<ICookiestand, CookiestandService>();
 
@@ -24,13 +31,26 @@ options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnectio
 
 
 var app = builder.Build();
-
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+app.UseSwagger(options =>
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+    options.RouteTemplate = "swagger/{documentName}/swagger.json";
+});
+
+app.UseSwaggerUI(options =>
+{
+    options.SwaggerEndpoint("/swagger/v1/swagger.json", "CookieStand API");
+    options.RoutePrefix = "swagger";
+});
+
+//if (app.Environment.IsDevelopment())
+//{
+//    app.UseSwagger();
+
+//    app.UseSwaggerUI(c =>
+//    {
+//        c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+//    });
+//}
 
 app.UseHttpsRedirection();
 

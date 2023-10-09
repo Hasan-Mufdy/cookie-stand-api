@@ -11,7 +11,7 @@ namespace cookie_stand_api.Data
         }
 
         public DbSet<Cookiestand> Cookiestands { get; set; }
-        //public DbSet<HourlySale> HourlySales { get; set; }
+        public DbSet<HourlySale> HourlySales { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -28,15 +28,15 @@ namespace cookie_stand_api.Data
             //.HasForeignKey(h => h.CookiestandId);
 
 
-    //        modelBuilder.Entity<Cookiestand>()
-    //.HasKey(c => c.Id);
-    //        modelBuilder.Entity<Cookiestand>().HasData(
-    //            new Cookiestand { Id = 1, Description = "desc", Location = "amman", HourlySales = { }, Minimum_customers_per_hour = 1, Maximum_customers_per_hour = 20, Average_cookies_per_sale = 0, Owner = "owner1", HourlySalesData = "10,15,20,25,30,35,40,45,50,55,60,65" }
-    //        );
+            //        modelBuilder.Entity<Cookiestand>()
+            //.HasKey(c => c.Id);
+            //        modelBuilder.Entity<Cookiestand>().HasData(
+            //            new Cookiestand { Id = 1, Description = "desc", Location = "amman", HourlySales = { }, Minimum_customers_per_hour = 1, Maximum_customers_per_hour = 20, Average_cookies_per_sale = 0, Owner = "owner1", HourlySalesData = "10,15,20,25,30,35,40,45,50,55,60,65" }
+            //        );
 
 
             modelBuilder.Entity<Cookiestand>().HasData(
-            new Cookiestand { Id = 1, Description = "desc", Location = "amman", HourlySales = "", Minimum_customers_per_hour = 1, Maximum_customers_per_hour = 20, Average_cookies_per_sale = 0, Owner = "owner1" }
+            new Cookiestand { Id = 1, Description = "desc", Location = "amman", Minimum_customers_per_hour = 1, Maximum_customers_per_hour = 20, Average_cookies_per_sale = 0, Owner = "owner1" }
             );
 
             base.OnModelCreating(modelBuilder);
